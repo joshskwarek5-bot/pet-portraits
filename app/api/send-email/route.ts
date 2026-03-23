@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
     console.log(`[send-email] Sending to ${email}`);
     const result = await resend.emails.send({
-      from: 'Perfectly Imperfect <onboarding@resend.dev>',
+      from: 'Perfectly Imperfect <portraits@petsdrawings.xyz>',
       to: email,
       subject: `Your portrait of ${petName} is ready! 🐾`,
       html: `

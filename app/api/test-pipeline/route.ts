@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
 
   console.log(`[test-pipeline] Sending email to ${email}`);
   const emailResult = await resend.emails.send({
-    from: 'Perfectly Imperfect <onboarding@resend.dev>',
+    from: 'Perfectly Imperfect <portraits@petsdrawings.xyz>',
     to: email,
     subject: `[TEST] Your portrait of ${petName} is ready! 🐾`,
     html: `

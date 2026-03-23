@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
       // Step 3: Email the portrait to the customer
       console.log(`[webhook] Step 3 — emailing portrait to ${email}`);
       await resend.emails.send({
-        from: 'Perfectly Imperfect <onboarding@resend.dev>',
+        from: 'Perfectly Imperfect <portraits@petsdrawings.xyz>',
         to: email,
         subject: `Your portrait of ${petName} is ready! 🐾`,
         html: buildEmailHtml(petName, email),
