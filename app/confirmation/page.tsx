@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { stripe } from '@/lib/stripe';
+import PixelPurchase from './PixelPurchase';
 
 interface Props {
   searchParams: { session_id?: string };
@@ -35,6 +36,7 @@ export default async function ConfirmationPage({ searchParams }: Props) {
         rel="stylesheet"
       />
 
+      <PixelPurchase />
       <div style={{ maxWidth: 520, textAlign: 'center' }}>
         <div style={{ fontSize: 80, marginBottom: 16 }}>🎨</div>
 
