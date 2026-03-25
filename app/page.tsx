@@ -27,6 +27,7 @@ export default function PerfectlyImperfect() {
   const [step, setStep] = useState(1);
   const [heroVis, setHeroVis] = useState(false);
   const [count, setCount] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [submitted, setSubmitted] = useState(false);
   const [galleryIdx, setGalleryIdx] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
