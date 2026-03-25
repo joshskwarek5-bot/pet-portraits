@@ -30,6 +30,8 @@ export default function PerfectlyImperfect() {
   const [submitted, setSubmitted] = useState(false);
   const [galleryIdx, setGalleryIdx] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [ordering, setOrdering] = useState(false);
+  const [orderError, setOrderError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -55,25 +57,55 @@ export default function PerfectlyImperfect() {
     return () => clearInterval(iv);
   }, []);
 
+  const compressImage = useCallback((dataUrl: string, maxWidth = 1200, quality = 0.8): Promise<string> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = dataUrl;
+    });
+  }, []);
+
   const handleFile = useCallback((f: File) => {
     if (!f) { setPreview(null); return; }
     const r = new FileReader();
-    r.onload = (e) => { setPreview(e.target?.result as string); setStep(2); };
+    r.onload = async (e) => {
+      const raw = e.target?.result as string;
+      const compressed = await compressImage(raw);
+      setPreview(compressed);
+      setStep(2);
+    };
     r.readAsDataURL(f);
-  }, []);
+  }, [compressImage]);
 
   const handleOrder = async () => {
     if (!email || !petName || !preview) return;
-    const res = await fetch('/api/create-checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ petName, email, photo: preview }),
-    });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      setSubmitted(true);
+    setOrdering(true);
+    setOrderError("");
+    try {
+      const res = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ petName, email, photo: preview }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setOrderError("Something went wrong. Please try again.");
+        setOrdering(false);
+      }
+    } catch {
+      setOrderError("Connection error. Please check your network and try again.");
+      setOrdering(false);
     }
   };
 
@@ -362,8 +394,11 @@ export default function PerfectlyImperfect() {
                   </div>
                   <div style={{ display:"flex", gap:10 }}>
                     <button onClick={()=>setStep(2)} style={{ background:"transparent", border:"2px solid #c4b59a", borderRadius:8, padding:"12px 16px", cursor:"pointer", fontSize:14, color:"#8b7a6a", fontFamily:"'Caveat', cursive", fontWeight:700 }}>← Back</button>
-                    <button className="sr" style={{ flex:1, fontSize:20, padding:"14px 24px" }} onClick={handleOrder}>Pay $29 - Craft My Portrait 🐾</button>
+                    <button className="sr" style={{ flex:1, fontSize:20, padding:"14px 24px", opacity: ordering ? 0.6 : 1, pointerEvents: ordering ? "none" : "auto" }} onClick={handleOrder}>{ordering ? "Connecting to payment..." : "Pay $29 - Craft My Portrait 🐾"}</button>
                   </div>
+                  {orderError && (
+                    <div style={{ marginTop:12, padding:"10px 14px", background:"#fee", border:"1px solid #c66", borderRadius:8, fontSize:13, color:"#a33", textAlign:"center" }}>{orderError}</div>
+                  )}
                   <div style={{ marginTop:14, display:"flex", justifyContent:"center", gap:14, fontSize:11, color:"#8b7a6a" }}>
                     <span>🔒 Secure payment</span><span>✅ Guaranteed Next Day Delivery</span>
                   </div>
