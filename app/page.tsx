@@ -29,7 +29,15 @@ export default function PerfectlyImperfect() {
   const [count, setCount] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [galleryIdx, setGalleryIdx] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => setHeroVis(true), 100);
@@ -122,11 +130,11 @@ export default function PerfectlyImperfect() {
 
       {/* HERO */}
       <section style={{
-        display:"grid", gridTemplateColumns:"1fr 1fr", minHeight:"80vh", alignItems:"center",
+        display:"grid", gridTemplateColumns:isMobile?"1fr":"1fr 1fr", minHeight:"80vh", alignItems:"center",
         opacity: heroVis?1:0, transform: heroVis?"translateY(0)":"translateY(20px)",
         transition:"all .8s ease-out",
       }}>
-        <div style={{ padding:"50px 48px" }}>
+        <div style={{ padding:isMobile?"28px 20px":"50px 48px" }}>
           <div style={{
             display:"inline-block", padding:"4px 12px", background:"#f0eade",
             border:"2px solid #2a2016", borderRadius:100,
@@ -145,7 +153,7 @@ export default function PerfectlyImperfect() {
             Send us a photo of your pet. We craft a beautiful, one-of-a-kind portrait in our signature sketched style. Each one is completely unique.
           </p>
 
-          <div style={{ fontSize:14, color:"#2a2016", fontWeight:600, marginBottom:28, display:"flex", gap:16 }}>
+          <div style={{ fontSize:14, color:"#2a2016", fontWeight:600, marginBottom:28, display:"flex", gap:isMobile?8:16, flexDirection:isMobile?"column":"row" }}>
             <span>🎨 Individually crafted</span>
             <span>✅ Guaranteed Next Day Delivery</span>
           </div>
@@ -160,7 +168,7 @@ export default function PerfectlyImperfect() {
           </div>
         </div>
 
-        <div style={{ padding:"40px 48px 40px 0", position:"relative" }}>
+        <div style={{ padding:isMobile?"0 20px 32px":"40px 48px 40px 0", position:"relative" }}>
           <div style={{ position:"relative" }}>
             {heroImgs.map((img, i) => (
               <img key={i} src={img.src} alt={img.name} style={{
@@ -223,7 +231,7 @@ export default function PerfectlyImperfect() {
           <div style={{ fontFamily:"'Caveat', cursive", fontSize:38, fontWeight:700 }}>Every portrait, completely unique.</div>
           <div style={{ fontSize:14, color:"#8b7a6a", marginTop:8 }}>Each one is crafted individually in our signature hand-drawn style</div>
         </div>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(3, 1fr)", gap:14 }}>
+        <div style={{ display:"grid", gridTemplateColumns:isMobile?"repeat(2, 1fr)":"repeat(3, 1fr)", gap:14 }}>
           {galleryImgs.map((img, i) => (
             <div key={i} style={{
               borderRadius:8, overflow:"hidden", border:"3px solid #2a2016",
@@ -375,7 +383,7 @@ export default function PerfectlyImperfect() {
       {/* REVIEWS */}
       <section style={{ padding:"60px 24px", maxWidth:700, margin:"0 auto" }}>
         <div style={{ fontFamily:"'Caveat', cursive", fontSize:34, fontWeight:700, marginBottom:28, textAlign:"center" }}>What people are saying:</div>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
+        <div style={{ display:"grid", gridTemplateColumns:isMobile?"1fr":"1fr 1fr", gap:14 }}>
           {[
             { name:"Sarah M.", text:"I can't believe how perfectly they captured Cooper's personality. The little details are incredible. I showed everyone at work.", pet:"Cooper's human" },
             { name:"Jake T.", text:"Got one of my cat looking grumpy. It's the most accurate portrait of her personality ever. Absolutely worth it.", pet:"Whiskers' human" },
