@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
         {
           price_data: {
             currency: 'usd',
-            unit_amount: 2900,
+            unit_amount: 1400,
             product_data: {
               name: `Custom Pet Portrait - ${petName}`,
             },

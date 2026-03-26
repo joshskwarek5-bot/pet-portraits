@@ -16,7 +16,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Custom Pet Portraits | Perfectly Imperfect",
-  description: "Custom hand-drawn style pet portraits. Guaranteed next day delivery. Only $29.",
+  description: "Custom hand-drawn style pet portraits. Guaranteed next day delivery. Only $14.",
 };
 
 export default function RootLayout({

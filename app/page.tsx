@@ -157,7 +157,7 @@ export default function PerfectlyImperfect() {
           </span>
           <button className="sb" style={{ fontSize:14, padding:"8px 18px" }}
             onClick={() => document.getElementById("order")?.scrollIntoView({ behavior:"smooth" })}>
-            Order Yours - $29</button>
+            Order Yours - $14</button>
         </div>
       </nav>
 
@@ -193,7 +193,7 @@ export default function PerfectlyImperfect() {
 
           <button className="sr" style={{ fontSize:22, padding:"16px 40px", animation:"bounce 2s ease-in-out infinite" }}
             onClick={() => document.getElementById("order")?.scrollIntoView({ behavior:"smooth" })}>
-            Get Yours - Only $29 →
+            Get Yours - Only $14 →
           </button>
 
           <div style={{ marginTop:20, fontSize:13, color:"#8b7a6a" }}>
@@ -238,7 +238,7 @@ export default function PerfectlyImperfect() {
         <div style={{ display:"inline-flex", gap:28, animation:"ticker 20s linear infinite" }}>
           {[...Array(2)].flatMap(() => [
             '"Absolutely beautiful" - Sarah', '"It captures her perfectly" - Jake',
-            '"I can\'t stop looking at it" - Emily', '"Best $29 I\'ve ever spent" - Marcus',
+            '"I can\'t stop looking at it" - Emily', '"Best $14 I\'ve ever spent" - Marcus',
             '"Ordering more for the family" - Priya', '"My cat has never looked better" - Alex',
             '"This made me cry happy tears" - Jen',
           ]).map((t, i) => (
@@ -390,12 +390,12 @@ export default function PerfectlyImperfect() {
                         <div style={{ fontFamily:"'Caveat', cursive", fontSize:18, fontWeight:700 }}>Custom Portrait of {petName}</div>
                         <div style={{ fontSize:12, color:"#8b7a6a" }}>Hand-drawn style / Delivered to {email}</div>
                       </div>
-                      <div style={{ fontFamily:"'Caveat', cursive", fontSize:28, fontWeight:700 }}>$29</div>
+                      <div style={{ fontFamily:"'Caveat', cursive", fontSize:28, fontWeight:700 }}>$14</div>
                     </div>
                   </div>
                   <div style={{ display:"flex", gap:10 }}>
                     <button onClick={()=>setStep(2)} style={{ background:"transparent", border:"2px solid #c4b59a", borderRadius:8, padding:"12px 16px", cursor:"pointer", fontSize:14, color:"#8b7a6a", fontFamily:"'Caveat', cursive", fontWeight:700 }}>← Back</button>
-                    <button className="sr" style={{ flex:1, fontSize:20, padding:"14px 24px", opacity: ordering ? 0.6 : 1, pointerEvents: ordering ? "none" : "auto" }} onClick={handleOrder}>{ordering ? "Connecting to payment..." : "Pay $29 - Craft My Portrait 🐾"}</button>
+                    <button className="sr" style={{ flex:1, fontSize:20, padding:"14px 24px", opacity: ordering ? 0.6 : 1, pointerEvents: ordering ? "none" : "auto" }} onClick={handleOrder}>{ordering ? "Connecting to payment..." : "Pay $14 - Craft My Portrait 🐾"}</button>
                   </div>
                   {orderError && (
                     <div style={{ marginTop:12, padding:"10px 14px", background:"#fee", border:"1px solid #c66", borderRadius:8, fontSize:13, color:"#a33", textAlign:"center" }}>{orderError}</div>
@@ -459,7 +459,7 @@ export default function PerfectlyImperfect() {
         <div style={{ fontFamily:"'Caveat', cursive", fontSize:"clamp(34px,7vw,52px)", fontWeight:700, lineHeight:1.1, marginBottom:12 }}>
           Your pet is already beautiful.<br/><span style={{ color:"#e63946" }}>Let us capture it.</span>
         </div>
-        <div style={{ fontSize:15, color:"rgba(250,246,238,.45)", marginBottom:28 }}>Individually crafted. Guaranteed Next Day Delivery. Only $29.</div>
+        <div style={{ fontSize:15, color:"rgba(250,246,238,.45)", marginBottom:28 }}>Individually crafted. Guaranteed Next Day Delivery. Only $14.</div>
         <button className="sr" style={{ fontSize:22, padding:"16px 44px" }}
           onClick={() => document.getElementById("order")?.scrollIntoView({ behavior:"smooth" })}>
           Order Your Portrait →
